@@ -31,7 +31,3 @@ class State(BaseModel, Base):
                 if city.state_id == self.id:
                     results.append(city)
             return results
-
-    def __init__(self, *args, **kwargs):
-        """initializes user"""
-        super().__init__(*args, **kwargs)

@@ -23,6 +23,7 @@ classes = {
     'User': User
 }
 
+
 class DBStorage:
     """Database storage class"""
 
@@ -46,7 +47,6 @@ class DBStorage:
 
         if HBNB_ENV == 'test':
             Base.metadata.drop_all(self.__engine)
-
 
     def all(self, cls=None):
         """
