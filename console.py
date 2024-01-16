@@ -33,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
     def preloop(self):
         """Prints if isatty is false"""
         if not sys.__stdin__.isatty():
-            print('(hbnb)')
+            print('(hbnb) ', end='')
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
@@ -73,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] == '{' and pline[-1] == '}'\
+                    if pline[0] == '{' and pline[-1] =='}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -113,36 +113,35 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    def do_create(self, arg):
+    def do_create(self, args):
         """ Create an object of any class"""
-        if not arg:
+
+        if not args:
             print("** class name missing **")
             return
 
-        kw_args = {}
-        args = arg.split(" ")
+        params = args.split(" ")
+        kwargs = {}
 
-        if args[0] not in HBNBCommand.classes:
+        if params[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
 
-        for each in args[1:]:
-            splitted_args = each.split("=")
-            splitted_args[1] = eval(splitted_args[1])
+        for param in params[1:]:
+            arg = param.split("=")
+            arg[1] = eval(arg[1])
 
-            if type(splitted_args[1]) == str:
-                splitted_args[1] = splitted_args[1]\
-                        .replace('"', '\\"').replace('_', ' ')
-                kw_args[splitted_args[0]] = splitted_args[1]
-            kw_args[splitted_args[0]] = splitted_args[1]
+            if type(arg[1]) == str:
+                arg[1] = arg[1].replace('"', '\\"').replace('_', ' ')
+                kwargs[arg[0]] = arg[1]
+            kwargs[arg[0]] = arg[1]
 
-        new_instance = HBNBCommand.classes[args[0]](**kw_args)
+        new_instance = HBNBCommand.classes[params[0]](**kwargs)
         print(new_instance.id)
         new_instance.save()
 
     def help_create(self):
         """ Help information for the create method """
-
         print("Creates a class of any type")
         print("[Usage]: create <className>\n")
 
@@ -170,7 +169,7 @@ class HBNBCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
         try:
-            print(storage._FileStorage__objects[key])
+            print(storage.all()[key])
         except KeyError:
             print("** no instance found **")
 
@@ -238,7 +237,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, args):
         """Count current number of class instances"""
         count = 0
-        for k, v in storage._FileStorage__objects.items():
+        for k, v in storage.all().items():
             if args == k.split('.')[0]:
                 count += 1
         print(count)
@@ -334,7 +333,6 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
-
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
