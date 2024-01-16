@@ -8,7 +8,7 @@ from models.place import Place
 from models.review import Review
 
 
-class User(BaseModel):
+class User(BaseModel, Base):
     """This class defines a user by various attributes"""
 
      __tablename__ = 'users'
