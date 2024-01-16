@@ -11,7 +11,7 @@ from models.review import Review
 class User(BaseModel, Base):
     """This class defines a user by various attributes"""
 
-     __tablename__ = 'users'
+    __tablename__ = 'users'
     if storage_type == 'db':
         email = Column(String(128), nullable=False)
         password = Column(String(128), nullable=False)
