@@ -3,7 +3,7 @@
 
 from models.base_model import BaseModel, Base
 from models import storage_type
-from sqlalchemy import Column, Table, String, Float, ForeignKey
+from sqlalchemy import Column, Table, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship
 import models
 
