@@ -65,30 +65,3 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
-
-        @property
-        def reviews(self):
-            """Fetches reviews related to a place object from file storage"""
-            from models import storage
-            from models.review import Review
-            revs = list(storage.all(Review).values())
-            return [r for r in revs if r.place_id == self.id]
-
-        @property
-        def amenities(self):
-            """
-            Returns (list): List of Amenities linked to Place instance
-            """
-            from models import storage
-            from models.amenity import Amenity
-            amenitees = storage.all(Amenity).values()
-            return [a for a in amenitees if a.id in self.amenity_ids]
-
-        @amenities.setter
-        def amenities(self, obj):
-            """
-            Appends an Amenity object to amenity_ids
-            """
-            from models.amenity import Amenity
-            if isinstance(obj, Amenity) and type(obj) == Amenity:
-                self.amenity_ids.append(obj.id)
