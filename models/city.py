@@ -5,7 +5,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 from models.place import Place
-import sqlalchemy
 
 
 class City(BaseModel, Base):
