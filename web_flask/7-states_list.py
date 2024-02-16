@@ -76,11 +76,11 @@ def number_odd_or_even(n):
 
 
 @app.route('/states_list', strict_slashes=False)
-    def states_list():
-        """Display a HTML page of the States
-        """
-        states = storage.all(State).values()
-        return render_template('7-states_list.html', states=states)
+def states_list():
+    """Display a HTML page of the States
+    """
+    states = storage.all(State).values()
+    return render_template('7-states_list.html', states=states)
 
 
 if __name__ == "__main__":
