@@ -54,6 +54,9 @@ ul.popover {
     border-radius: 4px;
     position: relative;
     z-index: 1;
+    height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 ul.popover h2 {
