@@ -19,6 +19,7 @@ def states_list():
     """
     states = sorted(
         list(storage.all(State).values()), key=lambda s: s.name
+    )
     return render_template("7-states_list.html", states=states)
 
 
